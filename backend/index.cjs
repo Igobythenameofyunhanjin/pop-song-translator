@@ -8,14 +8,16 @@ require('dotenv').config();
 const { translateLines } = require('./translateDeepL.js');
 
 const app = express();
-app.use(cors());
+
+// ✅ CORS is useful for local dev, but in production, limit it or remove it
+app.use(cors()); // In production, use: app.use(cors({ origin: 'https://yourdomain.com' }))
 app.use(express.json());
 
-// ✅ Serve React frontend
-const frontendPath = path.resolve(__dirname, '../dist');
+// ✅ Serve built frontend (from /dist after Vite build)
+const frontendPath = path.resolve(__dirname, '../frontend/dist');
 app.use(express.static(frontendPath));
 
-// ✅ Translate full lines
+// ✅ Translate full lines (DeepL)
 app.post('/api/translate', async (req, res) => {
   const { lines, targetLang } = req.body;
   if (!Array.isArray(lines)) {
@@ -30,7 +32,7 @@ app.post('/api/translate', async (req, res) => {
   }
 });
 
-// ✅ Translate individual word (tooltip)
+// ✅ Translate single word (tooltip support)
 app.get('/api/translate-word', async (req, res) => {
   const word = req.query.word;
   if (!word) return res.status(400).json({ error: 'No word provided' });
@@ -44,7 +46,7 @@ app.get('/api/translate-word', async (req, res) => {
   }
 });
 
-// ✅ Lyrics scraping
+// ✅ Scrape lyrics from Genius
 app.get('/lyrics', async (req, res) => {
   const { artist, title } = req.query;
   const searchQuery = `${artist} ${title}`;
@@ -73,7 +75,7 @@ app.get('/lyrics', async (req, res) => {
   }
 });
 
-// ✅ Fallback: React SPA
+// ✅ Fallback to frontend's index.html (for SPA routing support)
 app.get('*', (req, res) => {
   res.sendFile(path.join(frontendPath, 'index.html'));
 });
@@ -81,5 +83,5 @@ app.get('*', (req, res) => {
 // ✅ Start server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log(`🚀 Backend running on http://localhost:${PORT}`);
+  console.log(`🚀 Server ready at: http://localhost:${PORT}`);
 });

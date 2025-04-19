@@ -47,7 +47,7 @@ const YouTubePlayer = forwardRef(({ videoUrl, onTimeUpdate }, ref) => {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto my-4">
+    <div className="w-full aspect-video">
       <YouTube videoId={videoId} opts={opts} onReady={onReady} />
     </div>
   );

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { translateWithGoogle } from './Translator';
+import { translateWithDeepL } from './Translator';
 import LyricLine from './LyricLine';
 
 const LyricsDisplay = ({ lyrics, currentTime, onSeek }) => {
@@ -13,7 +13,7 @@ const LyricsDisplay = ({ lyrics, currentTime, onSeek }) => {
   useEffect(() => {
     const translateAll = async () => {
       const englishLines = lyrics.map((item) => item.line);
-      const translatedKoreanLines = await translateWithGoogle(englishLines);
+      const translatedKoreanLines = await translateWithDeepL(englishLines);
 
       const combined = lyrics.map((item, i) => ({
         ...item,

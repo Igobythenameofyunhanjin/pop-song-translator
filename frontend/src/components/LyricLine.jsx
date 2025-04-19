@@ -17,7 +17,7 @@ const LyricLine = ({ english, korean, isActive }) => {
     const y = e.clientY + window.scrollY;
 
     try {
-      const response = await axios.get(`http://localhost:3001/api/translate-word?word=${word}`);
+      const response = await axios.get(`/api/translate-word?word=${word}`);
       setTooltip({ show: true, text: response.data.translated, x, y });
     } catch (err) {
       console.error('❌ Tooltip translation failed:', err.message);
