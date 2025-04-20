@@ -80,23 +80,23 @@ function App() {
             name="youtubeUrl"
             type="text"
             placeholder="YouTube URL"
-            className="w-full max-w-2xl p-2 rounded text-black"
+            className="w-full max-w-2xl p-2 rounded text-orange-400"
           />
           <input
             name="artist"
             type="text"
             placeholder="Artist"
-            className="w-full max-w-2xl p-2 rounded text-black"
+            className="w-full max-w-2xl p-2 rounded text-orange-400"
           />
           <input
             name="title"
             type="text"
             placeholder="Song Title"
-            className="w-full max-w-2xl p-2 rounded text-black"
+            className="w-full max-w-2xl p-2 rounded text-orange-400"
           />
           <button
             type="submit"
-            className="bg-green-400 hover:bg-green-500 px-4 py-2 rounded text-black font-bold"
+            className="bg-orange-400 hover:bg-orange-500 px-4 py-2 rounded text-black font-bold"
           >
             Load
           </button>
