@@ -78,7 +78,7 @@ function YouTubeSearchBar({ onVideoSelect }) {
       <input
         type="text"
         value={query}
-        placeholder="Search YouTube"
+        placeholder="Search YouTube (유튜브 검색)"
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={handleKeyDown}
         className="border p-2 w-11/12 sm:w-3/4 lg:w-1/2 text-orange-400 rounded"

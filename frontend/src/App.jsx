@@ -110,7 +110,10 @@ function App() {
         />
 
         <h2 className="text-white font-bold text-center mb-4">
-          ✅ Or fill the below text boxes (혹은 아래에 있는 텍스트 박스들을 채워주세요.)
+          ✅ Or fill the below text boxes 
+          (혹은 아래에 있는 텍스트 박스들을 채워주세요)
+          ☠️ Youtube search function which is above can be somtimes blocked by youtube because of too many used 
+          (위에 있는 유튜브 검색 기능은 과도한 사용으로 인해 유튜브 측에서 차단할 때가 있습니다)
         </h2>
 
         <form
@@ -144,7 +147,7 @@ function App() {
               id="artist"
               name="artist"
               type="text"
-              placeholder="e.g. Kanye West"
+              placeholder="e.g. Kanye West (예시)"
               className="flex-1 p-2 rounded text-orange-400"
             />
           </div>
@@ -160,7 +163,7 @@ function App() {
               id="title"
               name="title"
               type="text"
-              placeholder="e.g. Stronger"
+              placeholder="e.g. Stronger (예시)"
               className="flex-1 p-2 rounded text-orange-400"
             />
           </div>
