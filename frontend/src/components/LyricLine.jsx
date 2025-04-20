@@ -41,6 +41,7 @@ const LyricLine = ({ english, korean, isActive }) => {
           : "opacity-30 scale-100"
       }`}
     >
+      
       {/* English Words */}
       <p className="text-xl sm:text-2xl font-bold text-white mb-1 flex flex-wrap justify-center">
         {english.split(" ").map((word, idx) => (

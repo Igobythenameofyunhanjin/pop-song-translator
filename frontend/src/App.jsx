@@ -106,7 +106,7 @@ function App() {
             });
           }}
         />
-        
+
         <h2 className="text-white font-bold text-center mb-4">
           ✅ Or fill the below text boxes
         </h2>
@@ -170,6 +170,14 @@ function App() {
             Load
           </button>
         </form>
+        
+        <br/>
+        <h2 className="text-white font-bold text-center mb-4">
+          🖱️ If You click the english vocabulary on the lyrics, You can see the korean meaning
+          of that clicked english vocabulary. <br />
+          ‼️ If You do double-click, lyric sync goes to the line which you did
+          double-click.
+        </h2>
 
         {videoUrl && (
           <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
