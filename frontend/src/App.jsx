@@ -27,7 +27,7 @@ function App() {
       setLyrics(syncedLyrics);
       //console.log("[✅ syncedLyrics Lines]", syncedLyrics);
     } catch (err) {
-      alert("Doesn't have the lyrics according to your artist and song title information.\nfill the artist and song title information again and push the Load button again.");
+      alert("Doesn't have the lyrics according to your artist and song title information.\n\nFill the artist and song title information again and push the Load button again.");
       console.error("Fallback to old method:", err);
 
       const rawLyrics = await fetchLyrics(artist, title);
