@@ -27,7 +27,9 @@ function App() {
       setLyrics(syncedLyrics);
       //console.log("[✅ syncedLyrics Lines]", syncedLyrics);
     } catch (err) {
-      alert("Doesn't have the lyrics according to your artist and song title information.\n\nFill the artist and song title information again and push the Load button again.");
+      alert(
+        "Doesn't have the lyrics according to your artist and song title information.\n\nFill the proper artist and song title information again and push the Load button again.\n\n가수와 노래 제목에 해당하는 가사가 없습니다.\n\n정확한 가수와 노래 제목을 다시 입력하여주시고 로드 버튼을 다시 눌러주세요."
+      );
       console.error("Fallback to old method:", err);
 
       const rawLyrics = await fetchLyrics(artist, title);
@@ -77,7 +79,7 @@ function App() {
       {loading && <LoadingSpinner />} {/* 👈 render conditionally */}
       <div className="w-full mx-auto px-4">
         <h1 className="text-3xl font-bold text-center mb-4">
-          🎧 Pop-Song Translator
+          🎧 Pop-Song Translator (영/한 팝송 번역기)
         </h1>
 
         <YouTubeSearchBar
@@ -108,7 +110,7 @@ function App() {
         />
 
         <h2 className="text-white font-bold text-center mb-4">
-          ✅ Or fill the below text boxes
+          ✅ Or fill the below text boxes (혹은 아래에 있는 텍스트 박스들을 채워주세요.)
         </h2>
 
         <form
@@ -120,7 +122,7 @@ function App() {
               htmlFor="youtubeUrl"
               className="w-32 text-right text-sm text-white"
             >
-              YouTube URL:
+              YouTube URL (유튜브 링크):
             </label>
             <input
               id="youtubeUrl"
@@ -136,7 +138,7 @@ function App() {
               htmlFor="artist"
               className="w-32 text-right text-sm text-white"
             >
-              Artist:
+              Artist (가수):
             </label>
             <input
               id="artist"
@@ -152,7 +154,7 @@ function App() {
               htmlFor="title"
               className="w-32 text-right text-sm text-white"
             >
-              Song Title:
+              Song Title (노래 제목):
             </label>
             <input
               id="title"
@@ -174,9 +176,14 @@ function App() {
         <br/>
         <h2 className="text-white font-bold text-center mb-4">
           🖱️ If You click the english vocabulary on the lyrics, You can see the korean meaning
-          of that clicked english vocabulary. <br />
-          ‼️ If You do double-click, lyric sync goes to the line which you did
+          of that clicked english vocabulary. 
+          <br />
+          가사 위에 있는 영단어를 클릭하면, 클릭한 영단어의 한국어 의미를 확인하실 수 있습니다.
+          <br />
+          ‼️ If You do double-click the lyric, music sync goes to the lyric line which you did
           double-click.
+          <br />
+          가사를 더블클릭 하시면, 더블클릭 하신 가사로 음악 싱크가 맞춰집니다.
         </h2>
 
         {videoUrl && (
