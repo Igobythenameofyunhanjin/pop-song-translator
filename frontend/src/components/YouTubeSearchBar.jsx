@@ -20,6 +20,7 @@ function YouTubeSearchBar({ onVideoSelect }) {
       setHighlighted(0);
     } catch (err) {
       console.error('❌ YouTube search failed:', err.message);
+      alert("Youtube search function blocked by YouTube company because of too many usage. Try this function again after tomorrow 4pm. Because of this function usage is gonna be initialized at that time.\n\n유튜브 검색 기능은 과도한 사용으로 인해 유튜브 측에서 차단되었습니다. 다음 날 오후 4시에 해당 기능 사용량이 초기화되오니 그 때 다시 사용해주시면 작동 될 것입니다.");
     } finally {
       setLoading(false);
     }

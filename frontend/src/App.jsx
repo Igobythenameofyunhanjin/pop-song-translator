@@ -77,10 +77,8 @@ function App() {
         />
 
         <h2 className="text-white font-bold text-center mb-4">
-          ✅ Or fill the below text boxes <br/>
-          (혹은 아래에 있는 텍스트 박스들을 채워주세요)<br/>
-          ☠️ Youtube search function which is above can be somtimes blocked by youtube because of too many used <br/>
-          (위에 있는 유튜브 검색 기능은 과도한 사용으로 인해 유튜브 측에서 차단할 때가 있습니다)
+          ✅ Or fill the below text boxes <br />
+          (혹은 아래에 있는 텍스트 박스들을 채워주세요)
         </h2>
 
         <form
@@ -142,24 +140,12 @@ function App() {
             Load
           </button>
         </form>
-        
-        <br/>
-        <h2 className="text-white font-bold text-center mb-4">
-          🖱️ If You click the english vocabulary on the lyrics, You can see the korean meaning
-          of that clicked english vocabulary. 
-          <br />
-          가사 위에 있는 영단어를 클릭하면, 클릭한 영단어의 한국어 의미를 확인하실 수 있습니다.
-          <br />
-          ‼️ If You do double-click the lyric, music sync goes to the lyric line which you did
-          double-click.
-          <br />
-          가사를 더블클릭 하시면, 더블클릭 하신 가사로 음악 싱크가 맞춰집니다.
-        </h2>
 
         {videoUrl && (
-          <div 
-          ref={playerContainerRef}
-          className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div
+            ref={playerContainerRef}
+            className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6"
+          >
             <YouTubePlayer
               key={videoUrl}
               ref={playerRef}
@@ -175,6 +161,19 @@ function App() {
           </div>
         )}
 
+        <br />
+        <h2 className="text-white font-bold text-center mb-4">
+          🖱️ If You click the english vocabulary on the lyrics, You can see the
+          korean meaning of that clicked english vocabulary.
+          <br />
+          가사 위에 있는 영단어를 클릭하면, 클릭한 영단어의 한국어 의미를
+          확인하실 수 있습니다.
+          <br />
+          ‼️ If You do double-click the lyric, music sync goes to the lyric line
+          which you did double-click.
+          <br />
+          가사를 더블클릭 하시면, 더블클릭 하신 가사로 음악 싱크가 맞춰집니다.
+        </h2>
         {/* <h4 className="text-1xl text-center mb-4">
           Korean-English Dictionary is supported by: <br />
           National Institute of Korean Language's Korean-English Learners'
@@ -187,7 +186,7 @@ function App() {
             alt="Centered"
           />
         </div> */}
-
+        <br />
         <div id="source-from">
           <h4 className="font-bold text-center mb-4">
             🤝 This app is supported by: <br />
@@ -202,15 +201,14 @@ function App() {
               https://chatgpt.com/
             </a>
             <br />
-            🚀 DeepL{" "}
+            🐦 Papago{" "}
             <a
-              href="https://www.deepl.com/en/products/translator"
+              href="https://www.ncloud.com/product/aiService/papagoTranslation"
               target="_blank"
             >
-              https://www.deepl.com/en/products/translator
+              https://www.ncloud.com/product/aiService/papagoTranslation
             </a>
-            <br />
-            🎸 LRCLIB{" "}
+            <br />✍ LRCLIB{" "}
             <a href="https://lrclib.net/" target="_blank">
               https://lrclib.net/
             </a>
@@ -220,10 +218,10 @@ function App() {
               https://genius.com/
             </a>
             <br /> */}
-            📖 KENGDIC{" "}
+            {/* 📖 KENGDIC{" "}
             <a href="https://github.com/garfieldnate/kengdic" target="_blank">
               https://github.com/garfieldnate/kengdic
-            </a>
+            </a> */}
             <br />
             <br />
             🔎 inquiry: cowarddrone98@gmail.com
