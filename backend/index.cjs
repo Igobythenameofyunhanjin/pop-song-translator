@@ -89,7 +89,7 @@ app.get('/api/youtube/search', async (req, res) => {
         part: 'snippet',
         q: query,
         type: 'video',
-        maxResults: 5,
+        maxResults: 1,
         key,
       },
     });
