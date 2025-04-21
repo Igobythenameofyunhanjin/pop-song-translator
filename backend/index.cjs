@@ -5,7 +5,7 @@ const cheerio = require('cheerio');
 const path = require('path');
 require('dotenv').config();
 
-const { translateLines } = require('./translateDeepL.js');
+const { translateLines } = require('./translatePapago.js');
 
 const app = express();
 
