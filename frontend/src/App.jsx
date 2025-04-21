@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
 import YouTubePlayer from './components/YouTubePlayer';
 import LyricsDisplay from './components/LyricsDisplay';
-import { fetchLyrics } from './components/LyricsFetcher';
 import fetchLrcLyrics from './components/fetchLrcLyrics';
 import YouTubeSearchBar from './components/YouTubeSearchBar';
 import LoadingSpinner from './components/LoadingSpinner'; // 👈 import spinner
@@ -12,12 +11,15 @@ function App() {
   const [lyrics, setLyrics] = useState([]);
   const [loading, setLoading] = useState(false); // 👈 loading state
   const playerRef = useRef(null); // 👈 this ref will control video time
+  const playerContainerRef = useRef(null);
 
+  
   const handleSongLoad = async (e) => {
     e.preventDefault();
     const url = e.target.elements.youtubeUrl.value;
     const artist = e.target.elements.artist.value;
     const title = e.target.elements.title.value;
+    
 
     setVideoUrl(url);
     setLoading(true); // 👈 show spinner
@@ -25,50 +27,15 @@ function App() {
     try {
       const syncedLyrics = await fetchLrcLyrics(title, artist);
       setLyrics(syncedLyrics);
+      setTimeout(() => {
+        playerContainerRef.current?.scrollIntoView({ behavior: 'smooth' });
+      }, 300);      
       //console.log("[✅ syncedLyrics Lines]", syncedLyrics);
     } catch (err) {
       alert(
-        "Doesn't have the lyrics according to your artist and song title information.\n\nFill the proper artist and song title information again and push the Load button again.\n\n가수와 노래 제목에 해당하는 가사가 없습니다.\n\n정확한 가수와 노래 제목을 다시 입력하여주시고 로드 버튼을 다시 눌러주세요."
+        "Doesn't have the lyrics according to your artist and song title information.\n\n가수와 노래 제목에 해당하는 가사가 없습니다.\n\nFill the proper artist and song title information again and push the Load button again.\n\n정확한 가수와 노래 제목을 다시 입력하여주시고 로드 버튼을 다시 눌러주세요."
       );
-      console.error("Fallback to old method:", err);
-
-      const rawLyrics = await fetchLyrics(artist, title);
-      const result = [];
-
-      rawLyrics
-        .replace(/^.*?(?=\[Verse|\[Intro|\[Chorus|\[Outro|\[Bridge)/, "")
-        .split(/(\[.*?\])/g)
-        .filter(Boolean)
-        .forEach((part) => {
-          if (part.startsWith("[")) {
-            result.push(part.trim());
-          } else {
-            const lines = part
-              .replace(/\[.*?\]/g, "")
-              .replace(/([a-z])([A-Z])/g, "$1\n$2")
-              .replace(/([,!?])(\S)/g, "$1\n$2")
-              .replace(/(\))(\S)/g, "$1\n$2")
-              .split("\n")
-              .map((line) => line.trim())
-              .filter(
-                (line) =>
-                  line.length > 2 &&
-                  !line.includes("Contributors") &&
-                  !line.includes("Translations") &&
-                  !line.includes("Português")
-              );
-
-            result.push(...lines);
-          }
-        });
-
-      const lines = result.map((line, idx) => ({
-        time: idx * 5,
-        line,
-      }));
-
-      setLyrics(lines);
-      //console.log("[✅ Clean Parsed Lines]", lines);
+      console.error("err:", err);
     } finally {
       setLoading(false); // 👈 hide spinner
     }
@@ -112,8 +79,8 @@ function App() {
         <h2 className="text-white font-bold text-center mb-4">
           ✅ Or fill the below text boxes <br/>
           (혹은 아래에 있는 텍스트 박스들을 채워주세요)<br/>
-          ☠️ Youtube search function which is above can be somtimes blocked by youtube because of too many used <br/>
-          (위에 있는 유튜브 검색 기능은 과도한 사용으로 인해 유튜브 측에서 차단할 때가 있습니다)
+          {/* ☠️ Youtube search function which is above can be somtimes blocked by youtube because of too many used <br/>
+          (위에 있는 유튜브 검색 기능은 과도한 사용으로 인해 유튜브 측에서 차단할 때가 있습니다) */}
         </h2>
 
         <form
@@ -190,7 +157,9 @@ function App() {
         </h2>
 
         {videoUrl && (
-          <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div 
+          ref={playerContainerRef}
+          className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
             <YouTubePlayer
               key={videoUrl}
               ref={playerRef}
