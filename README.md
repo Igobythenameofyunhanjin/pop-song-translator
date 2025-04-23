@@ -3,7 +3,7 @@
 
 🌍 [Live Site](https://pop-song-translator.onrender.com/) • 🎙️ Translate English to Korean Lyrics
 
-**Pop Song Translator** is a stylish and intuitive web application that translates English pop lyrics into Korean. Whether you're learning Korean through music, diving deep into lyric meanings, or just vibing with K-pop energy — this tool is built for you.
+**Pop Song Translator** is a stylish and intuitive web application that translates English pop lyrics into Korean. Whether you're learning English or Korean through music, diving deep into lyric meanings, or just vibing with Pop or K-pop energy — this tool is built for you.
 
 ![screenshot](image.png)
 
