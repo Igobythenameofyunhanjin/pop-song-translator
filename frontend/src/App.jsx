@@ -231,36 +231,12 @@ function App() {
               🤝 This app is supported by: <br />
               <br />
               🎥 YOUTUBE{" "}
-              <a href="https://www.youtube.com/" target="_blank">
-                https://www.youtube.com/
-              </a>
               <br />
               🤖 ChatGPT{" "}
-              <a href="https://chatgpt.com/" target="_blank">
-                https://chatgpt.com/
-              </a>
               <br />
               🐦 Papago{" "}
-              <a
-                href="https://www.ncloud.com/product/aiService/papagoTranslation"
-                target="_blank"
-              >
-                https://www.ncloud.com/product/aiService/papagoTranslation
-              </a>
               <br />✍ LRCLIB{" "}
-              <a href="https://lrclib.net/" target="_blank">
-                https://lrclib.net/
-              </a>
               <br />
-              {/* 🧠 GENIUS{" "}
-            <a href="https://genius.com/" target="_blank">
-              https://genius.com/
-            </a>
-            <br /> */}
-              {/* 📖 KENGDIC{" "}
-            <a href="https://github.com/garfieldnate/kengdic" target="_blank">
-              https://github.com/garfieldnate/kengdic
-            </a> */}
               <br />
               <br />
               🔎 inquiry: cowarddrone98@gmail.com
