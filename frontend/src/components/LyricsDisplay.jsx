@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { translateWithPapago } from './Translator';
 import LyricLine from './LyricLine';
 
-const LyricsDisplay = ({ lyrics, currentTime, onSeek, onRendered }) => {
+const LyricsDisplay = ({ lyrics, currentTime, onSeek, onRendered, onProgress }) => {
   const [translatedLyrics, setTranslatedLyrics] = useState([]);
   const [isUserScrolling, setIsUserScrolling] = useState(false);
   const [hasRendered, setHasRendered] = useState(false); // ✅ ensures callback is only fired once per lyrics
@@ -17,38 +17,45 @@ const LyricsDisplay = ({ lyrics, currentTime, onSeek, onRendered }) => {
     const version = ++versionRef.current;
     setTranslatedLyrics([]);
     setHasRendered(false);
-
+    onProgress?.(0); // start at 0%
+  
     const translate = async () => {
       const englishLines = lyrics.map((item) => item.line);
-      const translated = await translateWithPapago(englishLines);
-
-      if (cancelled || version !== versionRef.current) return;
-
+      const total = englishLines.length;
+      let translated = [];
+  
+      for (let i = 0; i < total; i++) {
+        // Translate in chunks of 10
+        const chunk = englishLines.slice(i, i + 10);
+        const result = await translateWithPapago(chunk);
+        if (cancelled || version !== versionRef.current) return;
+        translated.push(...result);
+        onProgress?.(Math.min(100, Math.round((translated.length / total) * 100)));
+        i += 9;
+      }
+  
       const combined = lyrics.map((item, i) => ({
         ...item,
         korean: translated[i] || '',
       }));
-
+  
       setTranslatedLyrics(combined);
     };
-
+  
     translate();
     return () => {
       cancelled = true;
     };
-  }, [lyrics]);
+  }, [lyrics, onProgress]);
+  
 
   // ✅ After lyrics have rendered → trigger `onRendered`
   useEffect(() => {
     if (translatedLyrics.length === 0 || hasRendered) return;
-
-    const timeout = setTimeout(() => {
-      setHasRendered(true);
-      onRendered?.();
-    }, 50); // let the DOM render first
-
-    return () => clearTimeout(timeout);
+    setHasRendered(true);
+    onRendered?.(); // directly trigger
   }, [translatedLyrics, hasRendered, onRendered]);
+  
 
   // 🎯 Auto-scroll only when not blocked by user
   useEffect(() => {
@@ -60,7 +67,7 @@ const LyricsDisplay = ({ lyrics, currentTime, onSeek, onRendered }) => {
 
     const offset = el.offsetTop - container.offsetTop;
     container.scrollTo({ top: offset - 100, behavior: 'smooth' });
-  }, [currentTime]);
+  }, [currentTime, isUserScrolling]);
 
   // 🖱️ Detect manual scroll → block auto-scroll
   useEffect(() => {

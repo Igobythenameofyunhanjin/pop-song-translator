@@ -3,8 +3,9 @@ import YouTubePlayer from './components/YouTubePlayer';
 import LyricsDisplay from './components/LyricsDisplay';
 import fetchLrcLyrics from './components/fetchLrcLyrics';
 import YouTubeSearchBar from './components/YouTubeSearchBar';
-import LoadingSpinner from './components/LoadingSpinner'; // 👈 import spinner
+//import LoadingSpinner from './components/LoadingSpinner'; // 👈 import spinner
 import { Helmet } from 'react-helmet';
+import LoadingProgressBar from './components/LoadingProgressBar';
 
 function App() {
   const [videoUrl, setVideoUrl] = useState('');
@@ -13,7 +14,8 @@ function App() {
   const [loading, setLoading] = useState(false); // 👈 loading state
   const playerRef = useRef(null); // 👈 this ref will control video time
   const playerContainerRef = useRef(null);
-  
+  const [progress, setProgress] = useState(0);
+
   const handleLyricsRendered = () => {
     setTimeout(() => {
       playerContainerRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -72,7 +74,7 @@ function App() {
       </Helmet>
 
       <div className="min-h-screen w-screen bg-black text-white p-4">
-        {loading && <LoadingSpinner />} {/* 👈 render conditionally */}
+      {loading && <LoadingProgressBar progress={progress} />}
         <div className="w-full mx-auto px-4">
           <h1 className="text-3xl font-bold text-center mb-4">
             🎧 Pop Song Translator <br />
@@ -195,6 +197,7 @@ function App() {
                 currentTime={currentTime}
                 onSeek={(time) => playerRef.current?.seekTo(time)}
                 onRendered={handleLyricsRendered} // ✅ pass callback
+                onProgress={setProgress} // ✅ add this
               />
             </div>
           )}

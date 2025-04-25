@@ -2,6 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes loading-progress {
+  0% {
+    left: -100%;
+    width: 100%;
+  }
+  50% {
+    left: 0%;
+    width: 100%;
+  }
+  100% {
+    left: 100%;
+    width: 0%;
+  }
+}
+
+.animate-loading-progress {
+  position: relative;
+  animation: loading-progress 2s infinite ease-in-out;
+}
+
+
 /* index.css */
 html, body, #root {
   width: 100%;
