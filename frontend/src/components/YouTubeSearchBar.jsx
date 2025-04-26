@@ -49,11 +49,25 @@ function YouTubeSearchBar({ onVideoSelect }) {
     setQuery('');
     setShowDropdown(false);
     setResults([]);
-    onVideoSelect({
-      url: `https://www.youtube.com/watch?v=${video.id.videoId}`,
-      artist: video.snippet.channelTitle,
-      title: video.snippet.title,
-    });
+    const indexOfDash = video.snippet.title.indexOf("-");
+
+    if (indexOfDash !== -1) {
+      const artist = video.snippet.title.slice(0, indexOfDash).trim();
+      const title = video.snippet.title.slice(indexOfDash + 1).trim();
+
+      onVideoSelect({
+        url: `https://www.youtube.com/watch?v=${video.id.videoId}`,
+        artist,
+        title,
+      });
+    } else {
+      onVideoSelect({
+        url: `https://www.youtube.com/watch?v=${video.id.videoId}`,
+        artist: video.snippet.channelTitle,
+        title: video.snippet.title,
+      });
+    }
+
   };
 
   // Close dropdown on outside click
