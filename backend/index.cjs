@@ -84,17 +84,53 @@ app.get('/api/youtube/search', async (req, res) => {
   }
 
   try {
-    const response = await axios.get('https://www.googleapis.com/youtube/v3/search', {
+    // Step 1: Search videos
+    const searchResponse = await axios.get('https://www.googleapis.com/youtube/v3/search', {
       params: {
         part: 'snippet',
         q: query,
         type: 'video',
-        maxResults: 1,
+        maxResults: 1, // can change to 1 if you want only 1
         key,
       },
     });
 
-    res.json(response.data.items);
+    const searchItems = searchResponse.data.items;
+    const videoIds = searchItems.map(item => item.id.videoId).join(',');
+
+    if (!videoIds) {
+      return res.json([]);
+    }
+
+    // Step 2: Get detailed video info (statistics + snippet)
+    const detailsResponse = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
+      params: {
+        part: 'snippet,statistics',
+        id: videoIds,
+        key,
+      },
+    });
+
+    const detailedItems = detailsResponse.data.items;
+
+    console.log('🔎 Detailed Items:', JSON.stringify(detailedItems, null, 2));
+
+    // Step 3: Format response for frontend
+    const enrichedResults = detailedItems.map(item => ({
+      id: { videoId: item.id },
+      snippet: {
+        title: item.snippet.title,
+        channelTitle: item.snippet.channelTitle,
+        thumbnails: item.snippet.thumbnails,
+        publishedAt: item.snippet.publishedAt,
+      },
+      statistics: {
+        viewCount: item.statistics?.viewCount,
+      },
+    }));
+
+    res.json(enrichedResults);
+
   } catch (err) {
     console.error('❌ YouTube search failed:', err.message);
     res.status(500).json({ error: 'YouTube search error' });

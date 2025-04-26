@@ -3,6 +3,34 @@ import axios from 'axios';
 import LoadingSpinner from './LoadingSpinner';
 import { decode } from 'html-entities';
 
+function formatViewCount(viewCount) {
+  if (!viewCount) return '';
+  const views = parseInt(viewCount, 10);
+  if (views >= 1_000_000) {
+    return (views / 1_000_000).toFixed(1) + 'M views';
+  } else if (views >= 1_000) {
+    return (views / 1_000).toFixed(1) + 'K views';
+  } else {
+    return views + ' views';
+  }
+}
+
+function formatUploadedDate(publishedAt) {
+  if (!publishedAt) return '';
+  const publishedDate = new Date(publishedAt);
+  const now = new Date();
+  const diffMs = now - publishedDate;
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+  if (diffDays < 1) return 'Today';
+  if (diffDays === 1) return '1 day ago';
+  if (diffDays < 30) return `${diffDays} days ago`;
+  const diffMonths = Math.floor(diffDays / 30);
+  if (diffMonths < 12) return `${diffMonths} month${diffMonths > 1 ? 's' : ''} ago`;
+  const diffYears = Math.floor(diffMonths / 12);
+  return `${diffYears} year${diffYears > 1 ? 's' : ''} ago`;
+}
+
 function YouTubeSearchBar({ onVideoSelect }) {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
@@ -104,23 +132,31 @@ function YouTubeSearchBar({ onVideoSelect }) {
 
       {showDropdown && results.length > 0 && (
         <ul className="absolute mt-2 w-11/12 sm:w-3/4 lg:w-1/2 bg-black border border-gray-700 rounded shadow-lg max-h-[300px] overflow-y-auto z-50">
-          {results.map((video, idx) => (
-            <li
-              key={video.id.videoId}
-              onClick={() => handleSelect(video)}
-              className={`cursor-pointer flex items-center px-4 py-2 gap-3 hover:bg-gray-800 ${
-                idx === highlighted ? 'bg-gray-700' : ''
-              }`}
-            >
-              <img
-                src={video.snippet.thumbnails.default.url}
-                alt={decode(video.snippet.title)}
-                className="w-12 h-9 rounded"
-              />
-              <span className="text-sm text-white">{decode(video.snippet.title)}</span>
-            </li>
-          ))}
-        </ul>
+        {results.map((video, idx) => (
+          <li
+            key={video.id.videoId}
+            onClick={() => handleSelect(video)}
+            className={`cursor-pointer flex items-start px-4 py-2 gap-3 hover:bg-gray-800 ${
+              idx === highlighted ? 'bg-gray-700' : ''
+            }`}
+          >
+            <img
+              src={video.snippet.thumbnails.default.url}
+              alt={decode(video.snippet.title)}
+              className="w-16 h-12 rounded"
+            />
+            <div className="flex flex-col text-white">
+              <span className="text-sm font-bold">{decode(video.snippet.title)}</span>
+              <span className="text-xs text-gray-400">{decode(video.snippet.channelTitle)}</span>
+              <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">
+                <span>{formatViewCount(video.statistics?.viewCount)}</span>
+                <span>•</span>
+                <span>{formatUploadedDate(video.snippet?.publishedAt)}</span>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>      
       )}
     </div>
   );
