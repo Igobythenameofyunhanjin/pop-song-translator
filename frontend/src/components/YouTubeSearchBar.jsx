@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import LoadingSpinner from './LoadingSpinner';
+import { decode } from 'html-entities';
 
 function YouTubeSearchBar({ onVideoSelect }) {
   const [query, setQuery] = useState('');
@@ -49,11 +50,11 @@ function YouTubeSearchBar({ onVideoSelect }) {
     setQuery('');
     setShowDropdown(false);
     setResults([]);
-    const indexOfDash = video.snippet.title.indexOf("-");
+    const indexOfDash = decode(video.snippet.title).indexOf("-");
 
     if (indexOfDash !== -1) {
-      const artist = video.snippet.title.slice(0, indexOfDash).trim();
-      const title = video.snippet.title.slice(indexOfDash + 1).trim();
+      const artist = decode(video.snippet.title).slice(0, indexOfDash).trim();
+      const title = decode(video.snippet.title).slice(indexOfDash + 1).trim();
 
       onVideoSelect({
         url: `https://www.youtube.com/watch?v=${video.id.videoId}`,
@@ -63,8 +64,8 @@ function YouTubeSearchBar({ onVideoSelect }) {
     } else {
       onVideoSelect({
         url: `https://www.youtube.com/watch?v=${video.id.videoId}`,
-        artist: video.snippet.channelTitle,
-        title: video.snippet.title,
+        artist: decode(video.snippet.channelTitle),
+        title: decode(video.snippet.title),
       });
     }
 
@@ -113,10 +114,10 @@ function YouTubeSearchBar({ onVideoSelect }) {
             >
               <img
                 src={video.snippet.thumbnails.default.url}
-                alt={video.snippet.title}
+                alt={decode(video.snippet.title)}
                 className="w-12 h-9 rounded"
               />
-              <span className="text-sm text-white">{video.snippet.title}</span>
+              <span className="text-sm text-white">{decode(video.snippet.title)}</span>
             </li>
           ))}
         </ul>
