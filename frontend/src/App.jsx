@@ -242,7 +242,7 @@ function App() {
               <br />
               <br />
               <br />
-              🔎 inquiry: cowarddrone98@gmail.com
+              🔎 Inquiry: cowarddrone98@gmail.com
             </h4>
           </div>
         </div>

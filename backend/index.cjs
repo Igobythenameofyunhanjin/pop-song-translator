@@ -84,14 +84,15 @@ app.get('/api/youtube/search', async (req, res) => {
   }
 
   try {
-    // Step 1: Search videos
+    // Step 1: Search videos (optimized fields)
     const searchResponse = await axios.get('https://www.googleapis.com/youtube/v3/search', {
       params: {
         part: 'snippet',
         q: query,
         type: 'video',
-        maxResults: 1, // can change to 1 if you want only 1
+        maxResults: 2,
         key,
+        fields: 'items(id/videoId)' // ✅ Only get video IDs
       },
     });
 
@@ -102,18 +103,19 @@ app.get('/api/youtube/search', async (req, res) => {
       return res.json([]);
     }
 
-    // Step 2: Get detailed video info (statistics + snippet)
+    // Step 2: Get detailed video info (optimized fields)
     const detailsResponse = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
       params: {
         part: 'snippet,statistics',
         id: videoIds,
         key,
+        fields: 'items(id,snippet(title,channelTitle,thumbnails,publishedAt),statistics(viewCount))' // ✅ Only necessary fields
       },
     });
 
     const detailedItems = detailsResponse.data.items;
 
-    console.log('🔎 Detailed Items:', JSON.stringify(detailedItems, null, 2));
+    console.log('✅ Detailed Items (optimized):', JSON.stringify(detailedItems, null, 2));
 
     // Step 3: Format response for frontend
     const enrichedResults = detailedItems.map(item => ({
