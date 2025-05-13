@@ -12,7 +12,7 @@
 ## ✨ Key Features
 
 - 🎧 **English to Korean Lyric Translation**
-  - Translates full lyrics or selected words using **Papago**  AI.
+  - Translates full lyrics or selected words using **DeepL**  AI.
 - 🔍 **YouTube Integration**
   - Paste a YouTube link or search for a song directly.
 - ⏱️ **Auto Synced Lyrics**
@@ -38,7 +38,7 @@
 
 | Frontend | Backend | AI Services | Hosting |
 |----------|---------|-------------|---------|
-| React.js + Tailwind CSS | Node.js + Express | Papago | Render.com |
+| React.js + Tailwind CSS | Node.js + Express | DeepL | Render.com |
 
 ---
 
@@ -48,8 +48,7 @@ Create a `.env` file in the backend directory with the following keys:
 
 ```env
 YOUTUBE_API_KEY=YOUR_YOUTUBE_DATA_API_V3_KEY
-PAPAGO_CLIENT_ID=YOUR_PAPAGO_CLIENT_ID_KEY
-PAPAGO_CLIENT_SECRET=YOUR_PAPAGO_CLIENT_SECRET_KEY
+DEEPL_API_KEY=YOUR_DEEPL_API_KEY
 ```
 
 ---
@@ -78,7 +77,7 @@ App runs locally at: `http://localhost:3001`
 ## 📡 API & Development Tools
 
 - 🤖 [ChatGPT](https://chat.openai.com)
-- 🌐 [Papago Translation](https://www.ncloud.com/product/aiService/papagoTranslation)
+- 🌐 [DeepL Translation](https://www.deepl.com/en/products/api)
 - 🎵 [LRCLIB Lyrics API](https://lrclib.net/)
 - 📹 [YouTube](https://www.youtube.com)
 

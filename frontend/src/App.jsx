@@ -237,7 +237,7 @@ function App() {
               <br />
               🤖 ChatGPT{" "}
               <br />
-              🐦 Papago{" "}
+              🌍 DeepL{" "}
               <br />✍ LRCLIB{" "}
               <br />
               <br />

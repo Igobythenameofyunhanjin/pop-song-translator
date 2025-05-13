@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { translateWithPapago } from './Translator';
+import { translateWithDeepL } from './Translator';
 import LyricLine from './LyricLine';
 
 const LyricsDisplay = ({ lyrics, currentTime, onSeek, onRendered, onProgress }) => {
@@ -27,7 +27,7 @@ const LyricsDisplay = ({ lyrics, currentTime, onSeek, onRendered, onProgress }) 
       for (let i = 0; i < total; i++) {
         // Translate in chunks of 10
         const chunk = englishLines.slice(i, i + 10);
-        const result = await translateWithPapago(chunk);
+        const result = await translateWithDeepL(chunk);
         if (cancelled || version !== versionRef.current) return;
         translated.push(...result);
         onProgress?.(Math.min(100, Math.round((translated.length / total) * 100)));
