@@ -233,12 +233,12 @@ function App() {
             <h4 className="font-bold text-center mb-4">
               🤝 This app is supported by: <br />
               <br />
-              🎥 YOUTUBE{" "}
+              YOUTUBE{" "}
               <br />
-              🤖 ChatGPT{" "}
+              ChatGPT{" "}
               <br />
-              🌍 DeepL{" "}
-              <br />✍ LRCLIB{" "}
+              DeepL{" "}
+              <br />LRCLIB{" "}
               <br />
               <br />
               <br />
